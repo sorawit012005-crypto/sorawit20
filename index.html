@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>มหัศจรรย์โลกคำคล้องจอง</title>
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#d9f2ff;--bg2:#e8ffd9;--card:#fff;--ink:#4a3b5c;--ok:#3cc47c;--warn:#ff9b6b;--pink:#ff8fb3;--sub:#6b5b7b;--bar:#ffffffb0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#2b3a55;--bg2:#2f4a3a;--card:#fffaf0;--ink:#4a3b5c;--bar:#ffffffd0}}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:'Mali','Noto Sans Thai Looping','Tahoma',sans-serif;color:var(--ink);background:linear-gradient(180deg,var(--bg1),var(--bg2));overflow:hidden;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);user-select:none;-webkit-user-select:none}
+#app{height:100%;display:flex;flex-direction:column;max-width:760px;margin:0 auto;padding:8px 12px;gap:6px}
+.top{background:var(--bar);border-radius:20px;padding:8px 12px;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;justify-content:space-between;font-weight:700;font-size:clamp(13px,3.6vw,18px)}
+.pill{background:#fff;border-radius:999px;padding:2px 12px;color:var(--ink)}
+.bar{width:100%;height:12px;background:#fff;border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ffb86b,#ff8fb3);border-radius:99px;transition:width .5s}
+.stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:space-around;min-height:0;text-align:center}
+.q{font-size:clamp(16px,4.5vw,22px);font-weight:700;margin:0}
+.mascots{font-size:clamp(26px,7vw,40px);letter-spacing:4px}
+.main{display:flex;align-items:center;gap:10px}
+.word-main{background:var(--card);border:6px solid #ffd36b;border-radius:32px;padding:6px 36px;font-size:clamp(64px,19vw,110px);font-weight:700;line-height:1.35;box-shadow:0 8px 0 #f2b84b}
+.spk{width:clamp(48px,12vw,62px);height:clamp(48px,12vw,62px);border-radius:50%;border:none;background:#7cc8ff;font-size:clamp(24px,6vw,30px);cursor:pointer;box-shadow:0 5px 0 #4aa6e0}
+.spk:active{transform:translateY(3px);box-shadow:0 2px 0 #4aa6e0}
+.hint{font-size:clamp(13px,3.6vw,17px);margin:0}
+.drop{width:min(78vw,300px);height:clamp(80px,18vh,118px);border:5px dashed #b48cff;border-radius:28px;background:#ffffffa8;display:flex;align-items:center;justify-content:center;font-size:clamp(30px,9vw,52px);font-weight:700;transition:.2s}
+.drop.over{background:#f1e6ff;transform:scale(1.05)}
+.drop.ok{border:5px solid var(--ok);background:#d9ffe9;animation:pop .5s}
+.drop.bad{border:5px solid var(--warn);background:#ffe9dc;animation:shake .5s}
+.msg{min-height:30px;font-size:clamp(15px,4.2vw,21px);font-weight:700;margin:0}
+.msg.ok{color:#1f9a58}.msg.bad{color:#e0612b}
+.choices{display:flex;gap:10px;justify-content:center;width:100%;padding:4px 0}
+.chip{touch-action:none;cursor:grab;flex:1;max-width:200px;padding:10px 4px;border-radius:24px;font-size:clamp(24px,7.5vw,38px);font-weight:700;text-align:center;box-shadow:0 6px 0 rgba(0,0,0,.15);border:4px solid #fff;color:#4a3b5c}
+.chip:nth-child(1){background:#ffd1dc}.chip:nth-child(2){background:#c9f0d4}.chip:nth-child(3){background:#cfe3ff}
+.chip.drag{position:fixed;z-index:50;pointer-events:none;transform:scale(1.1) rotate(-3deg);box-shadow:0 14px 20px rgba(0,0,0,.25);cursor:grabbing}
+.chip.used{visibility:hidden}
+.btn{border:none;border-radius:999px;padding:12px 34px;font-family:inherit;font-size:clamp(18px,5vw,24px);font-weight:700;color:#fff;background:var(--ok);box-shadow:0 6px 0 #26995c;cursor:pointer}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #26995c}
+.hide{display:none!important}
+.screen{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center}
+.screen h1{font-size:clamp(28px,8vw,46px);margin:0}
+.big{font-size:clamp(48px,14vw,80px)}
+.stars{font-size:clamp(28px,8vw,40px)}
+@keyframes pop{0%{transform:scale(.8)}60%{transform:scale(1.15)}100%{transform:scale(1)}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
+.confetti{position:fixed;top:-20px;font-size:26px;pointer-events:none;animation:fall 1.6s linear forwards;z-index:60}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+@media (max-height:620px){.mascots{display:none}}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="start" class="screen">
+    <div class="big">🐯🐰🐻🦊</div>
+    <h1>มหัศจรรย์โลกคำคล้องจอง</h1>
+    <p class="hint">ลากคำที่คล้องจองมาใส่ในช่องว่างนะ</p>
+    <button class="btn" id="startBtn">เริ่มเล่น ▶</button>
+  </div>
+
+  <div id="game" class="hide" style="display:contents">
+    <div class="top">
+      <span class="pill" id="lvl"></span>
+      <span class="pill" id="qn"></span>
+      <span class="pill">คะแนน: <b id="score">0</b></span>
+      <span class="pill">⭐ <b id="stars">0</b></span>
+      <div class="bar"><i id="prog"></i></div>
+    </div>
+    <div class="stage">
+      <div class="mascots" id="mascot">🐯</div>
+      <p class="q">คำใดคล้องจองกับคำว่า</p>
+      <div class="main"><div class="word-main" id="word"></div><button class="spk" id="spk" aria-label="ฟังเสียง">🔊</button></div>
+      <p class="hint">ลากคำตอบที่ถูกต้องมาใส่ในช่องว่าง</p>
+      <div class="drop" id="drop"></div>
+      <p class="msg" id="msg"></p>
+      <button class="btn hide" id="next">ข้อต่อไป ➜</button>
+    </div>
+    <div class="choices" id="choices"></div>
+  </div>
+
+  <div id="levelDone" class="screen hide">
+    <div class="big" id="ldMascot">🎉</div>
+    <h1>ผ่านด่านแล้ว!</h1>
+    <p class="hint" id="ldText"></p>
+    <button class="btn" id="ldBtn">ไปด่านต่อไป ➜</button>
+    <button class="btn" id="home1" style="background:#b48cff;box-shadow:0 6px 0 #8a5fe0">กลับหน้าหลัก 🏠</button>
+  </div>
+
+  <div id="final" class="screen hide">
+    <div class="big">🏆🐯🐰🐻🦊</div>
+    <h1>เก่งที่สุดเลย!</h1>
+    <p class="hint" id="finText"></p>
+    <div class="stars" id="finStars"></div>
+    <button class="btn" id="again">เล่นอีกครั้ง 🔄</button>
+    <button class="btn" id="home2" style="background:#b48cff;box-shadow:0 6px 0 #8a5fe0">กลับหน้าหลัก 🏠</button>
+  </div>
+</div>
+
+<script>
+// คลังข้อสอบ: แต่ละด่านมี 10 ข้อ (แก้ไขได้ง่าย) — word=คำตั้งต้น, correct=คำตอบที่ถูก, wrong=ตัวหลอก 2 คำ
+const BANKS=[
+ {name:"ด่าน 1: ป่าแห่งเสียงสระ",m:"🐯",bank:[
+  {word:"มา",correct:"ขา",wrong:["กิน","นก"]},{word:"ดี",correct:"ปี",wrong:["บ้าน","แมว"]},
+  {word:"ดู",correct:"ปู",wrong:["โต๊ะ","วิ่ง"]},{word:"กา",correct:"ป่า",wrong:["มือ","นอน"]},
+  {word:"สี",correct:"มี",wrong:["ปลา","บ้าน"]},{word:"งา",correct:"ตา",wrong:["หมี","กิน"]},
+  {word:"ยา",correct:"หา",wrong:["นก","วิ่ง"]},{word:"ปี",correct:"สี",wrong:["บ้าน","แมว"]},
+  {word:"หู",correct:"งู",wrong:["โต๊ะ","กิน"]},{word:"ใจ",correct:"ไฟ",wrong:["ปลา","นอน"]}]},
+ {name:"ด่าน 2: ทุ่งหญ้าคำคล้องจอง",m:"🐰",bank:[
+  {word:"บ้าน",correct:"ร้าน",wrong:["กา","ดู"]},{word:"ดาว",correct:"ยาว",wrong:["มือ","นก"]},
+  {word:"นก",correct:"ตก",wrong:["ปลา","กิน"]},{word:"ฝน",correct:"คน",wrong:["บ้าน","มือ"]},
+  {word:"นอน",correct:"สอน",wrong:["กา","ปู"]},{word:"แมว",correct:"แก้ว",wrong:["นก","วิ่ง"]},
+  {word:"ช้าง",correct:"หาง",wrong:["ดู","กิน"]},{word:"ลิง",correct:"วิ่ง",wrong:["บ้าน","ปลา"]},
+  {word:"จาน",correct:"ร้าน",wrong:["หู","นก"]},{word:"แม่",correct:"แพ้",wrong:["กา","มือ"]}]},
+ {name:"ด่าน 3: ปราสาทมหัศจรรย์",m:"🐻",bank:[
+  {word:"เสือ",correct:"เรือ",wrong:["บ้าน","กิน"]},{word:"แดง",correct:"แสง",wrong:["ปู","นก"]},
+  {word:"ปาก",correct:"จาก",wrong:["มือ","ดู"]},{word:"มือ",correct:"ถือ",wrong:["กา","แมว"]},
+  {word:"ข้าว",correct:"ดาว",wrong:["นก","วิ่ง"]},{word:"เลี้ยง",correct:"เสียง",wrong:["บ้าน","ปู"]},
+  {word:"หอม",correct:"ยอม",wrong:["มือ","กา"]},{word:"เรียน",correct:"เขียน",wrong:["นก","ดู"]},
+  {word:"รวย",correct:"มวย",wrong:["บ้าน","กิน"]},{word:"ปลา",correct:"นา",wrong:["มือ","เสือ"]}]}
+];
+const PER_LEVEL=10; // จำนวนข้อต่อด่าน (คลังมี 10 ข้อ/ด่าน)
+let LEVELS=[],lastSig="";
+// สุ่มข้อสอบใหม่: Fisher-Yates สลับลำดับในแต่ละด่าน แล้วเลือก 5 ข้อแรก (ไม่ซ้ำกัน)
+function buildGame(){
+  let sig,tries=0;
+  do{
+    LEVELS=BANKS.map(lv=>({name:lv.name,m:lv.m,
+      qs:shuffle(lv.bank).slice(0,PER_LEVEL).map(b=>[b.word,[b.correct,...b.wrong],b.correct])}));
+    sig=LEVELS.map(l=>l.qs.map(q=>q[0]+q[2]).join(",")).join("|");
+    tries++;
+  }while(sig===lastSig&&tries<20);
+  lastSig=sig;
+}
+function newGame(){buildGame();L=0;Q=0;score=0;stars=0;show("game");loadQ()}
+const MASCOTS=["🐯","🐰","🐻","🦊"];
+const $=id=>document.getElementById(id);
+let L=0,Q=0,score=0,stars=0,locked=false,cur=null;
+
+function show(id){["start","game","levelDone","final"].forEach(s=>{$(s).classList.add("hide")});
+  $(id).classList.remove("hide"); if(id==="game")$(id).style.display="contents"; else $("game").style.display="none";}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a} // Fisher-Yates
+function speak(t){try{if(!window.speechSynthesis)return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="th-TH";u.rate=.7;speechSynthesis.speak(u)}catch(e){}}
+function confetti(){const e=["⭐","🎉","✨","🌈","🎈"];for(let i=0;i<18;i++){const c=document.createElement("div");c.className="confetti";c.textContent=e[i%e.length];c.style.left=Math.random()*100+"vw";c.style.animationDelay=Math.random()*.4+"s";document.body.appendChild(c);setTimeout(()=>c.remove(),2200)}}
+
+function loadQ(){
+  const lv=LEVELS[L];cur=lv.qs[Q];locked=false;
+  $("lvl").textContent=lv.name;
+  $("qn").textContent="ข้อ "+(Q+1)+" / "+PER_LEVEL;
+  $("score").textContent=score;$("stars").textContent=stars;
+  $("prog").style.width=(Q/PER_LEVEL*100)+"%";
+  $("mascot").textContent=lv.m;
+  $("word").textContent=cur[0];
+  const d=$("drop");d.className="drop";d.textContent="";
+  const m=$("msg");m.className="msg";m.textContent="";
+  $("next").classList.add("hide");
+  const box=$("choices");box.innerHTML="";
+  shuffle(cur[1]).forEach(w=>{const c=document.createElement("div");c.className="chip";c.textContent=w;c.dataset.w=w;box.appendChild(c);attach(c)});
+  speak(cur[0]);
+}
+
+function attach(chip){
+  let sx,sy,ox,oy,ghost=null,id=null;
+  chip.addEventListener("pointerdown",e=>{
+    if(locked)return;e.preventDefault();id=e.pointerId;
+    const r=chip.getBoundingClientRect();ox=e.clientX-r.left;oy=e.clientY-r.top;
+    ghost=chip.cloneNode(true);ghost.classList.add("drag");ghost.style.width=r.width+"px";
+    document.body.appendChild(ghost);move(e);chip.style.opacity=".25";
+    chip.setPointerCapture(id);
+  });
+  function move(e){ghost.style.left=(e.clientX-ox)+"px";ghost.style.top=(e.clientY-oy)+"px";
+    const r=$("drop").getBoundingClientRect();
+    $("drop").classList.toggle("over",inDrop(e,r));}
+  function inDrop(e,r){return e.clientX>=r.left-15&&e.clientX<=r.right+15&&e.clientY>=r.top-15&&e.clientY<=r.bottom+15}
+  chip.addEventListener("pointermove",e=>{if(ghost&&e.pointerId===id)move(e)});
+  function end(e){
+    if(!ghost||e.pointerId!==id)return;
+    const hit=inDrop(e,$("drop").getBoundingClientRect());
+    ghost.remove();ghost=null;chip.style.opacity="";$("drop").classList.remove("over");
+    if(hit&&!locked)check(chip);
+  }
+  chip.addEventListener("pointerup",end);
+  chip.addEventListener("pointercancel",e=>{if(ghost){ghost.remove();ghost=null;chip.style.opacity="";$("drop").classList.remove("over")}});
+}
+
+function check(chip){
+  const w=chip.dataset.w,d=$("drop"),m=$("msg");
+  if(w===cur[2]){
+    locked=true;
+    d.className="drop ok";d.textContent=w;
+    m.className="msg ok";m.textContent="เก่งมาก! ถูกต้องแล้ว";
+    score+=10;stars+=1;$("score").textContent=score;$("stars").textContent=stars;
+    $("prog").style.width=((Q+1)/PER_LEVEL*100)+"%";
+    chip.classList.add("used");confetti();speak(w);
+    $("next").textContent=(Q===PER_LEVEL-1)?"จบด่าน ➜":"ข้อต่อไป ➜";
+    $("next").classList.remove("hide");
+  }else{
+    d.className="drop bad";d.textContent=w;
+    m.className="msg bad";m.textContent="ลองอีกครั้งนะ สังเกตเสียงของคำอีกนิด!";
+    setTimeout(()=>{if(!locked){d.className="drop";d.textContent=""}},900);
+  }
+}
+
+$("startBtn").onclick=newGame;
+$("spk").onclick=()=>speak(cur[0]);
+$("next").onclick=()=>{
+  if(!locked)return;
+  if(Q<PER_LEVEL-1){Q++;loadQ()}
+  else{
+    if(L<2){
+      $("ldMascot").textContent=LEVELS[L].m+"🎉";
+      $("ldText").textContent="ได้ "+score+" คะแนน และ "+stars+" ดาว ⭐";
+      show("levelDone");
+    }else{
+      $("finText").textContent="คะแนนรวม "+score+" / "+(PER_LEVEL*30)+" คะแนน";
+      $("finStars").textContent="⭐".repeat(stars);
+      show("final");confetti();
+    }
+  }
+};
+$("ldBtn").onclick=()=>{L++;Q=0;show("game");loadQ()};
+$("again").onclick=newGame;
+$("home1").onclick=$("home2").onclick=()=>show("start");
+$("game").style.display="none";
+</script>
+</body>
+</html>
